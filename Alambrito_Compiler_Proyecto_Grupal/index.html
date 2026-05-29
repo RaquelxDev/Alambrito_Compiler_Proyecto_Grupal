@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Alambrito Compiler | Compilador Traductor</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="app-header">
+    <div>
+      <p class="eyebrow">Traductor bilingüe</p>
+      <h1 class="brand-title" aria-label="Alambrito Compiler"><span class="brand-mark">A</span>la<span class="brand-mark">m</span>b<span class="brand-mark">r</span>ito <span>Compiler</span></h1>
+      <p class="subtitle">Compilador traductor bidireccional Inglés ↔ Español.</p>
+    </div>
+    <div class="status-pill" id="statusPill">Esperando entrada</div>
+  </header>
+
+  <main class="workspace">
+    <section class="panel editor-panel">
+      <div class="panel-title-row">
+        <div>
+          <h2>Programa Fuente</h2>
+          <p>Escriba texto, cargue un archivo .txt o use dictado por voz.</p>
+        </div>
+        <select id="languageMode" aria-label="Seleccionar modo de traducción">
+          <option value="en-es">Inglés → Español</option>
+          <option value="es-en">Español → Inglés</option>
+        </select>
+      </div>
+
+      <textarea id="sourceInput" spellcheck="false" placeholder="Ejemplo: the blue sky shines.&#10;Ejemplo: el cielo azul brilla."></textarea>
+
+      <div class="toolbar">
+        <label class="file-button" for="fileInput">📄 Cargar .txt</label>
+        <input id="fileInput" type="file" accept=".txt,text/plain" />
+        <button id="micButton" class="mic-button" title="Reconocimiento de voz">🎙️ Micrófono</button>
+        <button id="compileButton" class="primary-button">Compilar y traducir</button>
+        <button id="clearButton" class="secondary-button">Limpiar</button>
+      </div>
+      <p class="hint">El compilador detiene la síntesis si detecta errores léxicos, sintácticos o semánticos.</p>
+    </section>
+
+    <section class="panel output-panel">
+      <div class="panel-title-row">
+        <div>
+          <h2>Traducción</h2>
+          <p>Se muestra únicamente cuando el programa fuente está libre de errores.</p>
+        </div>
+      </div>
+      <div id="translationOutput" class="translation-box empty">La traducción aparecerá aquí cuando no existan errores.</div>
+    </section>
+  </main>
+
+  <section class="diagnostics panel">
+    <div class="tabs" role="tablist" aria-label="Diagnósticos del compilador">
+      <button class="tab active" data-tab="tokensTab" role="tab">Tabla de Símbolos / Tokens</button>
+      <button class="tab" data-tab="treeTab" role="tab">Árbol Sintáctico Visual</button>
+      <button class="tab" data-tab="errorsTab" role="tab">Tabla de Errores</button>
+    </div>
+
+    <article id="tokensTab" class="tab-content active">
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Lexema (Palabra)</th>
+              <th>Token</th>
+              <th>Categoría Gramatical</th>
+              <th>Traducción Individual</th>
+            </tr>
+          </thead>
+          <tbody id="tokensBody">
+            <tr><td colspan="4" class="empty-cell">Sin tokens todavía.</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </article>
+
+    <article id="treeTab" class="tab-content">
+      <div id="syntaxTree" class="tree-canvas empty-tree">El árbol se dibujará después del análisis sintáctico.</div>
+    </article>
+
+    <article id="errorsTab" class="tab-content">
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Tipo de Error</th>
+              <th>Ubicación (Línea/Palabra)</th>
+              <th>Descripción detallada</th>
+            </tr>
+          </thead>
+          <tbody id="errorsBody">
+            <tr><td colspan="3" class="empty-cell">Sin errores registrados.</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </article>
+  </section>
+
+  <footer class="app-footer">
+    <span>Compilador desarrollado por: Alan Marroquin, Mildred Pineda y Raquel Perez.</span>
+  </footer>
+
+  <script src="compiler.js"></script>
+</body>
+</html>
